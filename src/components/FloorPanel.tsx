@@ -26,7 +26,10 @@ const FloorPanel = ({ numFloors, onRequest, activeRequests }: FloorPanelProps) =
                 <Button
                   size="sm"
                   variant={activeRequests.has(`${floor}-up`) ? 'default' : 'outline'}
-                  onClick={() => onRequest(floor, 'up')}
+                  onClick={() => {
+                    console.log('Floor request clicked:', floor, 'up');
+                    onRequest(floor, 'up');
+                  }}
                   className="gap-1"
                 >
                   <ArrowUp className="w-4 h-4" />
@@ -37,7 +40,10 @@ const FloorPanel = ({ numFloors, onRequest, activeRequests }: FloorPanelProps) =
                 <Button
                   size="sm"
                   variant={activeRequests.has(`${floor}-down`) ? 'default' : 'outline'}
-                  onClick={() => onRequest(floor, 'down')}
+                  onClick={() => {
+                    console.log('Floor request clicked:', floor, 'down');
+                    onRequest(floor, 'down');
+                  }}
                   className="gap-1"
                 >
                   <ArrowDown className="w-4 h-4" />
