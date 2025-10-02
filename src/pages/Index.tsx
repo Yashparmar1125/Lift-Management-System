@@ -165,9 +165,10 @@ const Index = () => {
 
         {/* Main grid */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-          {/* Left column - Lifts */}
-          <div className="xl:col-span-2">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Left/Center - Lifts and Floor Panel */}
+          <div className="xl:col-span-2 grid grid-cols-1 lg:grid-cols-5 gap-6">
+            {/* Lifts */}
+            <div className="lg:col-span-4 grid grid-cols-2 lg:grid-cols-4 gap-4">
               {lifts.map((lift) => (
                 <LiftVisual
                   key={lift.id}
@@ -178,16 +179,20 @@ const Index = () => {
                 />
               ))}
             </div>
+            
+            {/* Floor Panel beside lifts */}
+            <div className="lg:col-span-1">
+              <FloorPanel
+                numFloors={NUM_FLOORS}
+                onRequest={handleExternalRequest}
+                activeRequests={getActiveRequestKeys()}
+              />
+            </div>
           </div>
 
-          {/* Right column - Controls and info */}
+          {/* Right column - Stats and Queue */}
           <div className="space-y-6">
             <SystemStats stats={stats} />
-            <FloorPanel
-              numFloors={NUM_FLOORS}
-              onRequest={handleExternalRequest}
-              activeRequests={getActiveRequestKeys()}
-            />
             <RequestQueue requests={requests} />
           </div>
         </div>
