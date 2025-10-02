@@ -9,17 +9,22 @@ interface FloorPanelProps {
 
 const FloorPanel = ({ numFloors, onRequest, activeRequests }: FloorPanelProps) => {
   return (
-    <div className="bg-card rounded-xl p-6 shadow-card border border-border">
-      <h2 className="text-xl font-bold text-foreground mb-4">Floor Request Panel</h2>
-      <p className="text-sm text-muted-foreground mb-4">
-        External controls - Call a lift to any floor
-      </p>
+    <div className="bg-gradient-card rounded-xl p-6 shadow-card border border-border hover:border-primary/30 transition-all duration-300 h-full">
+      <div className="mb-4">
+        <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
+          <span className="text-2xl">🏢</span>
+          Floor Panel
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          External controls - Call lifts
+        </p>
+      </div>
       
-      <div className="space-y-2">
+      <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
         {Array.from({ length: numFloors }, (_, i) => numFloors - 1 - i).map((floor) => (
-          <div key={floor} className="flex items-center gap-3 bg-muted/50 rounded-lg p-3">
-            <span className="text-foreground font-mono font-bold w-12">
-              Floor {floor}
+          <div key={floor} className="flex items-center gap-3 bg-muted/40 hover:bg-muted/60 rounded-lg p-3 border border-border/30 transition-all">
+            <span className="text-foreground font-mono font-bold w-12 text-primary">
+              {floor}
             </span>
             <div className="flex gap-2 ml-auto">
               {floor < numFloors - 1 && (
@@ -30,7 +35,9 @@ const FloorPanel = ({ numFloors, onRequest, activeRequests }: FloorPanelProps) =
                     console.log('Floor request clicked:', floor, 'up');
                     onRequest(floor, 'up');
                   }}
-                  className="gap-1"
+                  className={`gap-1 transition-all hover:scale-105 ${
+                    activeRequests.has(`${floor}-up`) ? 'shadow-glow' : ''
+                  }`}
                 >
                   <ArrowUp className="w-4 h-4" />
                   Up
@@ -44,7 +51,9 @@ const FloorPanel = ({ numFloors, onRequest, activeRequests }: FloorPanelProps) =
                     console.log('Floor request clicked:', floor, 'down');
                     onRequest(floor, 'down');
                   }}
-                  className="gap-1"
+                  className={`gap-1 transition-all hover:scale-105 ${
+                    activeRequests.has(`${floor}-down`) ? 'shadow-glow' : ''
+                  }`}
                 >
                   <ArrowDown className="w-4 h-4" />
                   Down

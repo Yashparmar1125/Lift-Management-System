@@ -29,45 +29,53 @@ const RequestQueue = ({ requests }: RequestQueueProps) => {
   };
 
   return (
-    <div className="bg-card rounded-xl p-6 shadow-card border border-border">
-      <h2 className="text-xl font-bold text-foreground mb-4">Request Queue</h2>
-      <p className="text-sm text-muted-foreground mb-4">
-        Real-time request tracking ({requests.length} active)
-      </p>
+    <div className="bg-gradient-card rounded-xl p-6 shadow-card border border-border hover:border-primary/30 transition-all duration-300">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+            <span className="text-2xl">📋</span>
+            Request Queue
+          </h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            <span className="text-primary font-semibold">{requests.length}</span> active requests
+          </p>
+        </div>
+      </div>
       
-      <div className="space-y-2 max-h-96 overflow-y-auto">
+      <div className="space-y-2 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
         {requests.length === 0 ? (
-          <div className="text-center py-8 text-muted-foreground">
-            No active requests
+          <div className="text-center py-12 text-muted-foreground bg-muted/20 rounded-lg border border-dashed border-border">
+            <p className="text-4xl mb-2">✨</p>
+            <p>No active requests</p>
           </div>
         ) : (
           requests.map((request) => (
             <div
               key={request.id}
-              className={`flex items-center gap-3 bg-muted/50 rounded-lg p-3 border-l-4 ${getStatusColor(request.status)}`}
+              className={`flex items-center gap-3 bg-muted/40 hover:bg-muted/60 rounded-lg p-3 border-l-4 ${getStatusColor(request.status)} transition-all hover:scale-[1.02] animate-slide-up`}
             >
               {getStatusIcon(request.status)}
               <div className="flex-1">
                 <div className="flex items-center justify-between">
-                  <span className="text-foreground font-mono">
+                  <span className="text-foreground font-mono font-bold text-primary">
                     Floor {request.floor}
                   </span>
-                  <span className="text-xs text-muted-foreground capitalize">
+                  <span className="text-xs text-muted-foreground capitalize font-semibold px-2 py-1 bg-background/50 rounded">
                     {request.status}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
-                  <span>{request.isInternal ? 'Internal' : 'External'}</span>
+                  <span className="font-medium">{request.isInternal ? '🔘 Internal' : '🏢 External'}</span>
                   {request.liftId && (
                     <>
                       <span>•</span>
-                      <span>Lift {request.liftId}</span>
+                      <span className="text-primary">Lift {request.liftId}</span>
                     </>
                   )}
                   {request.direction && (
                     <>
                       <span>•</span>
-                      <span className="capitalize">{request.direction}</span>
+                      <span className="capitalize">{request.direction === 'up' ? '⬆️' : '⬇️'} {request.direction}</span>
                     </>
                   )}
                 </div>

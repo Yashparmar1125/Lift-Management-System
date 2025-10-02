@@ -121,33 +121,44 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-[1800px] mx-auto space-y-6">
+    <div className="min-h-screen bg-background p-6 relative overflow-hidden">
+      {/* Animated background gradient */}
+      <div className="absolute inset-0 bg-gradient-glow opacity-30 pointer-events-none" />
+      
+      <div className="max-w-[1800px] mx-auto space-y-6 relative z-10">
         {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-5xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Distributed Lift Management System
-          </h1>
-          <p className="text-muted-foreground text-lg">
-            Real-time simulation of concurrent lift operations with fault tolerance
+        <div className="text-center space-y-4 animate-slide-up">
+          <div className="inline-block">
+            <h1 className="text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+              Distributed Lift System
+            </h1>
+            <div className="h-1 bg-gradient-primary rounded-full animate-shimmer" style={{
+              backgroundSize: '200% 100%',
+              backgroundImage: 'linear-gradient(90deg, transparent, hsl(var(--primary)), transparent)'
+            }} />
+          </div>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Real-time simulation demonstrating <span className="text-primary font-semibold">concurrency</span>, 
+            <span className="text-accent font-semibold"> fault tolerance</span>, and 
+            <span className="text-success font-semibold"> distributed coordination</span>
           </p>
           
           {/* Control buttons */}
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-4 pt-4">
             <Button
               size="lg"
               onClick={() => setIsRunning(!isRunning)}
-              className="gap-2"
+              className={`gap-2 transition-all hover:scale-110 ${isRunning ? 'shadow-glow' : ''}`}
             >
               {isRunning ? (
                 <>
                   <PauseCircle className="w-5 h-5" />
-                  Pause
+                  Pause Simulation
                 </>
               ) : (
                 <>
                   <PlayCircle className="w-5 h-5" />
-                  Start
+                  Start Simulation
                 </>
               )}
             </Button>
@@ -155,10 +166,10 @@ const Index = () => {
               size="lg"
               variant="outline"
               onClick={handleReset}
-              className="gap-2"
+              className="gap-2 transition-all hover:scale-110"
             >
               <RotateCcw className="w-5 h-5" />
-              Reset
+              Reset System
             </Button>
           </div>
         </div>
