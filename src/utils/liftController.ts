@@ -68,7 +68,12 @@ export class LiftController {
 
   updateLiftPositions(): void {
     this.lifts.forEach(lift => {
-      if (lift.status === 'fault' || lift.targetFloors.length === 0) {
+      if (lift.status === 'fault') {
+        // Do not change state while in fault
+        return;
+      }
+
+      if (lift.targetFloors.length === 0) {
         lift.status = 'idle';
         lift.direction = 'idle';
         return;
